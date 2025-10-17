@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Feedbacks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        body { background: #e8f5e9; }
+        .container { max-width: 1000px; margin: 50px auto; }
+        table {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        th { background-color: #05b605; color: white; }
+        .btn-back {
+            background-color: #05b605;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .btn-back:hover { background-color: #039a03; }
+        h3 { text-align: center; color: #05b605; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Feedback Dashboard</h3>
+        <button class="btn btn-back" onclick="window.location.href='index.html'">
+            <i class="fa fa-arrow-left"></i> Back to Feedback Form
+        </button>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>SI.NO</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Feedback Type</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const feedbackTable = document.getElementById("feedbackTable");
+        const feedbackList = JSON.parse(localStorage.getItem("feedbacks") || "[]");
+
+        if (feedbackList.length === 0) {
+            feedbackTable.innerHTML = `<tr><td colspan="5" class="text-center">No Feedback Available</td></tr>`;
+        } else {
+            feedbackList.forEach((fb, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${fb.name}</td>
+                    <td>${fb.email}</td>
+                    <td>${fb.category}</td>
+                    <td>${fb.message}</td>
+                </tr>`;
+                feedbackTable.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>
