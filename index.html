@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #e8f5e9; }
+        form {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-submit {
+            background-color: #05b605;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #039a03;
+        }
+    </style>
+</head>
+<body>
+    <form id="feedbackForm">
+        <h3 class="text-center text-success">Give Your Feedback</h3>
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" id="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Feedback Type</label>
+            <select id="category" class="form-select" required>
+                <option value="">Select feedback</option>
+                <option>Product feedback</option>
+                <option>Customer feedback</option>
+                <option>Service feedback</option>
+                <option>Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Message</label>
+            <textarea id="message" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-submit w-100">Submit</button>
+        <button type="button" class="btn btn-secondary w-100 mt-2" onclick="window.location.href='dashboard.html'">View Dashboard</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("feedbackForm");
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
+
+            feedbacks.push({
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                category: document.getElementById("category").value,
+                message: document.getElementById("message").value
+            });
+
+            localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+            alert("Feedback submitted successfully!");
+            form.reset();
+        });
+    </script>
+</body>
+</html>
